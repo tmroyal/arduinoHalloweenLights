@@ -9,21 +9,12 @@
 #define GHOST_ON "G"
 #define GHOST_OFF "g"
 #define EYE_ON "E"
-//#define EYE_OFF "e"
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_PIXELS, PIN, NEO_GRB + NEO_KHZ800);
-
-// orange
-// strip.setPixelColor(i, strip.Color(255, 132, 0));
-
-// blue
 
 uint8_t colors[N_PIXELS];
 float brightnesses[N_PIXELS];
 
-// purple
-// lightening
-// fade orange purple
 void setup() {
   setupColors();
   strip.begin();
@@ -47,7 +38,7 @@ void loop() {
 
   switch (random(4)){
     case 0:
-      lighteningStorm();
+      lightningStorm();
       
       break;
     case 1:
@@ -139,15 +130,15 @@ void setStrip(uint32_t color){
   }
 }
 
-void lighteningStorm(){
+void lightningStorm(){
   uint8_t nStrikes = random(6,10);
   for (uint8_t i = 0; i < nStrikes; i++){
-    lighteningStrike();
+    lightningStrike();
     delay(random(500));
   }
 }
 
-void lighteningStrike(){
+void lightningStrike(){
   uint8_t nFlashes = random(1,5);
   uint8_t period = random(10,100);
   uint8_t inter = random(10,50);
@@ -172,20 +163,22 @@ void scaryEye(){
     }
     strip.show();
     delay(100);
-    strip.show();
     setStrip(strip.Color(0,0,0));
   }
-  //Serial.print(EYE_OFF);
+  Serial.print(EYE_OFF);
 }
 
 void magicPotions(){
   Serial.print(MAGIC_ON);
+
   uint16_t its = random(1000,3000);
   for (uint16_t i = 0; i < its; i++){
     strip.setPixelColor((uint16_t)random(strip.numPixels()), (uint8_t)random(255),(uint8_t)random(255),(uint8_t)random(255));
     strip.show();
     delay(1);
   }
+
   Serial.print(MAGIC_OFF);
+
   setStrip(strip.Color(0,0,0));
 }
